@@ -2,6 +2,7 @@ package com.nozomisoft.rest.controller;
 
 import com.nozomisoft.rest.model.User;
 import com.nozomisoft.rest.service.UserService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,24 +16,25 @@ import rx.Observable;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+  @Autowired
+  private UserService userService;
 
-    @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
-    public DeferredResult<User> getUser(@PathVariable String username){
-        DeferredResult<User> result = new DeferredResult();
-        Observable<User> observable = userService.getUser(username);
-        observable.subscribe(result::setResult, result::setErrorResult);
+  @RequestMapping(value = "/user/{username}", method = RequestMethod.GET)
+  public DeferredResult<User> getUser(@PathVariable String username) {
+    DeferredResult<User> result = new DeferredResult();
+    Observable<User> observable = userService.getUser(username);
+    observable.subscribe(result::setResult, result::setErrorResult);
 
-        return result;
-    }
+    return result;
+  }
 
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public DeferredResult<User> createUser(@RequestBody User user){
-        DeferredResult<User> result = new DeferredResult();
-        Observable<User> observable = userService.createUser(user);
-        observable.subscribe(result::setResult, result::setErrorResult);
+  @RequestMapping(value = "/user", method = RequestMethod.POST)
+  public DeferredResult<User> createUser(@RequestBody @Valid User user) {
+    DeferredResult<User> result = new DeferredResult();
+    Observable<User> observable = userService.createUser(user);
+    observable.subscribe(result::setResult, result::setErrorResult);
 
-        return result;
-    }
+    return result;
+  }
+
 }

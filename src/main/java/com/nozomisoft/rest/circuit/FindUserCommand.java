@@ -4,7 +4,6 @@ import com.netflix.hystrix.HystrixCommand;
 import com.netflix.hystrix.HystrixCommandGroupKey;
 import com.nozomisoft.rest.model.User;
 import com.nozomisoft.rest.repository.UserRepository;
-import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
@@ -14,18 +13,18 @@ import org.springframework.stereotype.Component;
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class FindUserCommand extends HystrixCommand<User> {
 
-    @Autowired
-    private UserRepository userRepository;
+  @Autowired
+  private UserRepository userRepository;
 
-    private String username;
+  private String username;
 
-    public FindUserCommand(String username){
-        super(HystrixCommandGroupKey.Factory.asKey("UserGroup"));
-        this.username = username;
-    }
+  public FindUserCommand(String username) {
+    super(HystrixCommandGroupKey.Factory.asKey("UserGroup"));
+    this.username = username;
+  }
 
-    @Override
-    protected User run()  {
-        return userRepository.getUser(username);
-    }
+  @Override
+  protected User run() {
+    return userRepository.getUser(username);
+  }
 }

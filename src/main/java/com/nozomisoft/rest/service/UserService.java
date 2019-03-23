@@ -11,18 +11,18 @@ import rx.Observable;
 @Service
 public class UserService {
 
-    @Autowired
-    private ObjectProvider<FindUserCommand> findUserCommand;
+  @Autowired
+  private ObjectProvider<FindUserCommand> findUserCommand;
 
-    @Autowired
-    private ObjectProvider<CreateUserCommand> createUserCommand;
+  @Autowired
+  private ObjectProvider<CreateUserCommand> createUserCommand;
 
-    public Observable<User> getUser(String username){
-        return findUserCommand.getObject(username).observe();
-    }
+  public Observable<User> getUser(String username) {
+    return findUserCommand.getObject(username).observe();
+  }
 
-    public Observable<User> createUser(User user){
-        return createUserCommand.getObject(user).observe();
-    }
+  public Observable<User> createUser(User user) {
+    return createUserCommand.getObject(user).observe();
+  }
 
 }
