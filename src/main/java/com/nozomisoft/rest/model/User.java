@@ -17,6 +17,9 @@ public class User {
   private String username;
   @NotNull
   @NotEmpty
+  private String password;
+  @NotNull
+  @NotEmpty
   private String name;
   @NotNull
   @NotEmpty
@@ -33,4 +36,10 @@ public class User {
   @NotEmpty
   @Size(max = 4)
   private String language;
+  @NotNull
+  @NotEmpty
+  private String role;
+  @NotNull
+  @NotEmpty
+  private String status;
 }

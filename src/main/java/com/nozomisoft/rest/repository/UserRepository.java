@@ -15,10 +15,13 @@ public class UserRepository {
     user.setId("0");
     user.setName("name");
     user.setUsername("nick");
+    user.setPassword("123");
     user.setLastName("lastname");
     user.setEmail("email@mail.com");
     user.setCountry("US");
     user.setLanguage("en");
+    user.setRole("ADMIN");
+    user.setStatus("ACTIVE");
   }
 
   public User getUser(String username) {
