@@ -9,6 +9,8 @@ import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 @Scope(value = ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 public class CreateUserCommand extends HystrixCommand<User> {
@@ -26,6 +28,7 @@ public class CreateUserCommand extends HystrixCommand<User> {
 
   @Override
   protected User run() throws Exception {
+    user.setCreated(LocalDateTime.now());
     return userRepository.createUser(user);
   }
 }

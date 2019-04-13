@@ -7,6 +7,8 @@ import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 public class User {
@@ -42,4 +44,6 @@ public class User {
   @NotNull
   @NotEmpty
   private String status;
+
+  private LocalDateTime created;
 }

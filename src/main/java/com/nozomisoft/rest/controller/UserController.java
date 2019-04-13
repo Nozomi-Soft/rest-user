@@ -1,15 +1,18 @@
 package com.nozomisoft.rest.controller;
 
+import com.nozomisoft.rest.model.ErrorResponse;
 import com.nozomisoft.rest.model.User;
 import com.nozomisoft.rest.service.UserService;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.async.DeferredResult;
 import rx.Observable;
 
@@ -45,6 +48,15 @@ public class UserController {
     observable.subscribe(result::setResult, result::setErrorResult);
 
     return result;
+  }
+
+  @ExceptionHandler(MethodArgumentNotValidException.class)
+  public ResponseEntity<List<ErrorResponse>> methodArgumentNotValidExceptionn(MethodArgumentNotValidException ex) {
+    List<ErrorResponse> errors = ex.getBindingResult()
+            .getFieldErrors().stream()
+            .map(error -> new ErrorResponse(error.getField(), error.getDefaultMessage()))
+            .collect(Collectors.toList());
+    return ResponseEntity.badRequest().body(errors);
   }
 
 }
