@@ -1,42 +1,16 @@
 package com.nozomisoft.rest.repository;
 
 import com.nozomisoft.rest.model.User;
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserRepository {
+public interface UserRepository extends MongoRepository<User, String> , UserRepositoryCustom{
 
-  User user;
+  User findUserByEmail(@Param("email") String email);
 
-  public  UserRepository() {
-    user = new User();
-    user.setId("0");
-    user.setName("name");
-    user.setUsername("nick");
-    user.setPassword("123");
-    user.setLastName("lastname");
-    user.setEmail("email@mail.com");
-    user.setCountry("US");
-    user.setLanguage("en");
-    user.setRole("ADMIN");
-    user.setStatus("ACTIVE");
-  }
+  User findUserByUsername(@Param("username") String username);
 
-  public User getUser(String username) {
-    return user;
-  }
-
-  public List<User> getUsers() {
-    List<User> result = new ArrayList<>();
-    result.add(user);
-    result.add(user);
-    result.add(user);
-    return result;
-  }
-
-  public User createUser(User user) {
-    return user;
-  }
+  User findUserByEmailAndPassword(@Param("email") String email, @Param("password") String password);
 }

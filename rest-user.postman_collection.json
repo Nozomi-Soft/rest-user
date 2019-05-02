@@ -1,12 +1,88 @@
 {
 	"info": {
-		"_postman_id": "edae2b3a-a162-4904-8e30-81b70c93ec1e",
-		"name": "ws-user",
+		"_postman_id": "34b3c345-e71f-491a-8c00-aa66a9f93ac2",
+		"name": "rest-user",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "http://localhost:9001/api/v1/user/0",
+			"name": "search by username",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:9001/rest-user/api/v1/user/?username=admin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"rest-user",
+						"api",
+						"v1",
+						"user",
+						""
+					],
+					"query": [
+						{
+							"key": "username",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": null,\n    \"username\": \"admin\",\n    \"password\": \"123\",\n    \"name\": \"name\",\n    \"lastName\": \"lastname\",\n    \"email\": \"email@mail.com\",\n    \"location\": {\n        \"country\": \"US\",\n        \"language\": \"en\"\n    },\n    \"roles\": [\n        \"ADMIN\", \"USER\"\n    ],\n    \"status\": \"ACTIVE\",\n    \"created\": null\n}"
+				},
+				"url": {
+					"raw": "http://localhost:9001/rest-user/api/v1/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9001",
+					"path": [
+						"rest-user",
+						"api",
+						"v1",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "search by email",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -25,24 +101,31 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:9001/api/v1/user/0",
+					"raw": "http://localhost:9001/rest-user/api/v1/user/?email=email@mail.com",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9001",
 					"path": [
+						"rest-user",
 						"api",
 						"v1",
 						"user",
-						"0"
+						""
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "email@mail.com"
+						}
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "http://localhost:9001/api/v1/user",
+			"name": "authenticate",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -55,23 +138,47 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": \"0\",\n    \"username\": \"nick\",\n    \"name\": \"name\",\n    \"lastName\": \"lastname\",\n    \"email\": \"email@mail.com\"\n}"
+					"raw": "{\n    \"email\": \"email@mail.com\",\n    \"password\": \"123\"\n}"
 				},
 				"url": {
-					"raw": "http://localhost:9001/api/v1/user",
+					"raw": "http://localhost:9001/rest-user/api/v1/user/authenticate",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "9001",
 					"path": [
+						"rest-user",
 						"api",
 						"v1",
-						"user"
+						"user",
+						"authenticate"
 					]
 				}
 			},
 			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f268563e-f2bb-45d8-a280-8e4367795301",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "3d6a1e74-6eb0-44df-b7e3-837ea6b3c737",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
