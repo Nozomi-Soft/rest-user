@@ -34,6 +34,6 @@ public class CreateUserCommand extends HystrixCommand<User> {
   protected User run() throws Exception {
     user.setCreated(LocalDateTime.now());
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    return userRepository.save(user);
+    return userRepository.saveMerge(user);
   }
 }
