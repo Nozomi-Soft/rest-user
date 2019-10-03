@@ -22,6 +22,6 @@ public class FindUsersCommand extends HystrixCommand<List<User>> {
 
   @Override
   protected List<User> run() {
-    return userRepository.findAll();
+    return (List<User>) userRepository.findAll();
   }
 }

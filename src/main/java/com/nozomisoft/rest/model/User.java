@@ -1,7 +1,16 @@
 package com.nozomisoft.rest.model;
 
+import java.math.BigInteger;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -9,28 +18,24 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.IndexDirection;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 
 @Getter
 @Setter
-@Document(collection = "users")
+@Entity
 public class User {
 
   @Id
-  private String id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private BigInteger id;
   @NotNull
   @NotEmpty
-  @Indexed(direction = IndexDirection.ASCENDING)
   private String username;
   @NotNull
   @NotEmpty
   private String password;
   @NotNull
   @NotEmpty
-  private String name;
+  private String firstName;
   @NotNull
   @NotEmpty
   private String lastName;
@@ -40,9 +45,12 @@ public class User {
   private String email;
   @NotNull
   @Valid
+  @OneToOne(cascade = CascadeType.ALL)
+  @JoinColumn(name = "location_id", referencedColumnName = "id")
   private Location location;
-  @NotNull
+  //@NotNull
   @Size(min = 1)
+  @Transient
   private List<String> roles;
   @NotNull
   @NotEmpty
@@ -50,17 +58,4 @@ public class User {
 
   private LocalDateTime created;
 
-  @Getter
-  @Setter
-  public static class Location {
-
-    @NotNull
-    @NotEmpty
-    @Size(max = 4)
-    private String country;
-    @NotNull
-    @NotEmpty
-    @Size(max = 4)
-    private String language;
-  }
 }

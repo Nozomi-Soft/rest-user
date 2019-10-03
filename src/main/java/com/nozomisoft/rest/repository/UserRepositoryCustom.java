@@ -7,4 +7,6 @@ import com.nozomisoft.rest.model.UserAuth;
 public interface UserRepositoryCustom {
 
   User authenticate(UserAuth user);
+
+  User saveMerge(User user);
 }
